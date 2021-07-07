@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         float jump = 0;
         if (controller.isGrounded)
         {
+            velocity.y = 0;
             jump = Input.GetAxisRaw("Jump");
         }
 
