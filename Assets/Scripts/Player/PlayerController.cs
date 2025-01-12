@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jump_power;
     public float move_speed;
 
-    private Vector3 velocity;
-    private Vector3 external_velocity;
+    public Vector3 velocity;
 
     private Vector3 start_pos;
 
@@ -41,6 +40,8 @@ public class PlayerController : MonoBehaviour
             init();
             transform.position = start_pos;
         }
+        // move controller
+        controller.Move((velocity) * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -64,39 +65,7 @@ public class PlayerController : MonoBehaviour
 
         velocity += new Vector3(0, jump * jump_power, 0);
 
-        // constant moving forward
-        // velocity += new Vector3(0, 0, move_speed);
-
-        // external velocity from function blocks
-        velocity += external_velocity;
-        external_velocity = Vector3.zero;
-
-        // move controller
-        controller.Move(velocity * Time.fixedDeltaTime);
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        switch (other.name)
-        {
-            case "Jump":
-                external_velocity += new Vector3(0, 2, 0);
-                return;
-
-            case "Boost":
-                external_velocity += new Vector3(0, 0, 3);
-                return;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        switch (other.name)
-        {
-            case "Boost":
-                velocity = new Vector3(0, 0, move_speed);
-                return;
-        }
-    }
 
 }
