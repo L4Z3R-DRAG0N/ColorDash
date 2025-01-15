@@ -39,11 +39,23 @@ public class Segment : MonoBehaviour
 
     void GenerateBlocks()
     {
-        GameObject newJump = Instantiate(Jump, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(0, 9)), Quaternion.identity, transform);
-        GameObject newJump2 = Instantiate(Jump, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(0, 9)), Quaternion.identity, transform);
+        for (int i = 0; i < 4; i++)
+        {
+            // include 0
+            if (Random.Range(-4, 5) > 0)
+            {
+                Instantiate(Jump, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(1 + 2*i, 3 + 2*i)), Quaternion.identity, transform);
+            }
+            else
+            {
+                Instantiate(Boost, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(1 + 2 * i, 3 + 2 * i)), Quaternion.identity, transform);
+            }
+        }
+        //GameObject newJump = Instantiate(Jump, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(0, 9)), Quaternion.identity, transform);
+        //GameObject newJump2 = Instantiate(Jump, transform.position + new Vector3(0, Random.Range(1, 6), Random.Range(0, 9)), Quaternion.identity, transform);
 
-        GameObject newBoost = Instantiate(Boost, transform.position + new Vector3(0, Random.Range(1, 4), Random.Range(1, 8)), Quaternion.identity, transform);
-        GameObject newBoost2 = Instantiate(Boost, transform.position + new Vector3(0, Random.Range(1, 4), Random.Range(1, 8)), Quaternion.identity, transform);
+        //GameObject newBoost = Instantiate(Boost, transform.position + new Vector3(0, Random.Range(1, 4), Random.Range(1, 8)), Quaternion.identity, transform);
+        //GameObject newBoost2 = Instantiate(Boost, transform.position + new Vector3(0, Random.Range(1, 4), Random.Range(1, 8)), Quaternion.identity, transform);
     }
 
     private void OnTriggerEnter(Collider other)
