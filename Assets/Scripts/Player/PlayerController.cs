@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameSettings game_settings;
     public Vector3 gravity;
     public float jump_power;
     public float move_speed;
+    public float move_speed_coefficient=1;
+
+    public GameObject map;
 
     public Vector3 velocity;
 
@@ -33,7 +37,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -46,7 +50,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         // gravtiy
         if (!controller.isGrounded)
         {
@@ -54,8 +57,6 @@ public class PlayerController : MonoBehaviour
         }
 
         // player input
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
         float jump = 0;
         if (controller.isGrounded)
         {
@@ -67,5 +68,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Segment")
+        {
+            velocity += new Vector3(0, 0, 0.1f);
+        }
+    }
 }

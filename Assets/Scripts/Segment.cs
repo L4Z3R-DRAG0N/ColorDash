@@ -7,15 +7,11 @@ public class Segment : MonoBehaviour
     public GameObject Boost;
 
     private Transform Map;
-    private float timer;
-    private bool timer_triger;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         GenerateBlocks();
         Map = transform.parent;
-        timer = 0;
-        timer_triger = false;
     }
 
     // Update is called once per frame
@@ -26,15 +22,7 @@ public class Segment : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (timer_triger)
-        {
-            timer += Time.fixedDeltaTime;
-        }
-        // destroy segment on timeout
-        if (timer > 10)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
     void GenerateBlocks()
@@ -60,9 +48,11 @@ public class Segment : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Map.GetComponent<Map>().GenerateSegment();
-        // start trigger once player enter
-        timer_triger = true;
+        if (other.tag == "Player")
+        {
+            Map.GetComponent<Map>().GenerateSegment();
+        }
+        
     }
 
 }
