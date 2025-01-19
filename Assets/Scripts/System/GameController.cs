@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reset();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadSceneAsync("StartMenu");
         }
     }
 
