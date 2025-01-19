@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        timer = 0;
+        Init();
         timer_display = GetComponent<TMP_Text>();
     }
 
@@ -17,6 +17,11 @@ public class Timer : MonoBehaviour
     {
         timer += Time.deltaTime;
         DisplayTime(timer);
+    }
+
+    public void Init()
+    {
+        timer = 0;
     }
 
     void DisplayTime(float timeToDisplay)

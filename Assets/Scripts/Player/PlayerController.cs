@@ -18,32 +18,35 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rig;
     private CharacterController controller;
+    private TrailRenderer trail;
 
     // init variables
-    private void init()
+    public void Init()
     {
-        velocity = new Vector3(0, 0, move_speed);
+        trail.enabled = false;
+        trail.Clear();
 
-        rig = GetComponent<Rigidbody>();
-        controller = GetComponent<CharacterController>();
-        
+        velocity = new Vector3(0, 0, move_speed);
+        transform.position = start_pos;
+
+        trail.enabled = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         start_pos = transform.position;
-        init();
+
+        rig = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        trail = GetComponentInChildren<TrailRenderer>();
+
+        Init();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            init();
-            transform.position = start_pos;
-        }
         // move controller
         controller.Move((velocity) * Time.deltaTime);
     }
